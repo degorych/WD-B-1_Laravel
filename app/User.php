@@ -54,4 +54,11 @@ class User extends Authenticatable
     {
         return $this->roles()->where('slug', $roleSlug)->count() == 1;
     }
+
+    /**
+     * Checks if the user is not blocked.
+     */
+    public  function isNotBlocked() {
+        return $this->is_blocked ? false : true;
+    }
 }

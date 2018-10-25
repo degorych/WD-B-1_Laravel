@@ -85,7 +85,17 @@
 
     <div class="content">
         <div class="title m-b-md">
-            Laravel
+            @auth
+                @cannot('isNotBlocked', 'App\User')
+                    You are blocked!!!
+                @else
+                    Laravel
+                @endcannot
+            @endauth
+
+            @guest
+                Laravel
+            @endguest
         </div>
         <div class="links">
             @guest
@@ -94,13 +104,14 @@
 
             @auth
                 @if (Auth::user()->inRole('admin'))
-                    <a href="{{ url('user/form/show') }}">Fill form</a>
-                    <a href="{{ url('admin/form/list') }}">Form list</a>
-                    <a href="{{ url('admin/user/list') }}">User list</a>
+                    <a href="{{ route('form.index') }}">Form list</a>
+                    <a href="{{ route('userList') }}">User list</a>
                 @endif
 
                 @if (Auth::user()->inRole('user'))
-                    <a href="{{ url('user/form/show') }}">Fill form</a>
+                    @can('isNotBlocked', 'App\User')
+                        <a href="{{ route('form.create') }}">Fill form</a>
+                    @endcan
                 @endif
             @endauth
         </div>

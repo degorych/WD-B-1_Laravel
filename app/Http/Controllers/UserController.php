@@ -28,7 +28,7 @@ class UserController extends Controller
             return redirect('/');
         }
 
-        $showUser = User::all()->where('id', '==', $id)->first();
+        $showUser = User::findOrFail($id);
         return view('user.id', ['showUser' => $showUser]);
     }
 
@@ -40,12 +40,13 @@ class UserController extends Controller
             'block' => 'alpha',
         ]);
 
-        $user = User::all()->where('id', '==', $id)->first();
+        $user = User::findOrFail($id);
         $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'is_blocked' => $request->block ? true : false,
         ]);
+
+        $user->is_blocked = (boolean) $request->block;
 
         $user->save();
 

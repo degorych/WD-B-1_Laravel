@@ -13,24 +13,18 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::middleware('auth')->group(function() {
     Route::prefix('admin')->group(function () {
-        Route::get('/form/list', 'FormController@showFormsList');
-        Route::post('/form/update', 'FormController@adminUpdateForm');
         Route::get('/user/list', 'UserController@showUserList')->name('userList');
         Route::get('/user/list/{id}', 'UserController@showUserData')->name('userAttr');
         Route::post('/user/list/{id}/update', 'UserController@updateUserData');
+
+        Route::resource('form', 'FormController');
     });
 
-    Route::prefix('user/form')->group(function () {
-        Route::get('/show', 'FormController@userShowForm');
-        Route::post('/send', 'FormController@userSendForm');
-    });
+    Route::resource('user/form', 'FormController')->only(['create', 'store'])->middleware('can:isNotBlocked,App\User');
 });
-

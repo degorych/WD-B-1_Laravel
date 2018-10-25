@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\User;
+use Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -17,6 +18,10 @@ class UserPolicy
     public function __construct()
     {
         //
+    }
+
+    public function isNotBlocked(User $user) {
+        return $user->isNotBlocked();
     }
 
     public function show(User $user)

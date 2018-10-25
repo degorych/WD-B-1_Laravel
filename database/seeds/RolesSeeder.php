@@ -18,16 +18,17 @@ class RolesSeeder extends Seeder
             'permissions' => [
                 'show-user-info' => true,
                 'update-user-info' => true,
+                'index-form' => true,
                 'show-form' => true,
-                'update-form' => true,
-                'fill-form' => true
+                'edit-form' => true,
+                'create-form' => true
             ]
         ]);
         $user = Role::create([
             'name' => 'User',
             'slug' => 'user',
             'permissions' => [
-                'fill-form' => true,
+                'create-form' => true,
             ]
         ]);
     }

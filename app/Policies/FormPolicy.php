@@ -20,13 +20,23 @@ class FormPolicy
         //
     }
 
-    public function show(User $user)
+    public function index(User $user)
     {
-        return $user->hasAccess(['fill-form']);
+        return $user->hasAccess(['index-form']);
     }
 
-    public function update(User $user)
+    public function show(User $user)
     {
-        return $user->hasAccess(['update-form']);
+        return $user->hasAccess(['show-form']);
+    }
+
+    public function create(User $user)
+    {
+        return $user->hasAccess(['create-form']);
+    }
+
+    public function edit(User $user)
+    {
+        return $user->hasAccess(['edit-form']);
     }
 }

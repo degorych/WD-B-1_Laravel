@@ -23,7 +23,7 @@
                             <p class="alert alert-info">{{ session()->get('message') }}</p>
                         @endif
 
-                        {!! Form::open(['action' => 'FormController@userSendForm', 'role' => 'form']) !!}
+                        {!! Form::open(['route' => 'form.store', 'role' => 'form']) !!}
 
                         <div class="form-group row">
                             {!! Form::label('name', 'Name', ['class' => 'col-md-4 col-form-label text-md-right']) !!}

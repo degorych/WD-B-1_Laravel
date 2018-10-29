@@ -11,7 +11,7 @@
  
 - Copy project from github.
 - Create database.
-- Go to `.env.example`, end delete **.example** extension or copy data to **.env** file (for example ` copy .env.example .env`). Enter into **.env** your data to db connect.
+- Go to `.env.example`, end delete **.example** extension or copy data to **.env** file (for example `copy .env.example .env`). Enter into **.env** your data to db connect.
 - Go to `config/database.php` and choose default settings for db connect, if need.
 - Run **terminal** into app folder and enter **composer install** or **php composer.phar install** command.
 - Run **php artisan key:generate**.

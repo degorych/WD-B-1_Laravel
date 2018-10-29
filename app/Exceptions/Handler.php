@@ -50,6 +50,10 @@ class Handler extends ExceptionHandler
             return response(view('errors.404'), 404);
         }
 
+        if ($exception instanceof  \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            return response(view('errors.404'), 404);
+        }
+
         return parent::render($request, $exception);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Form;
+use App\User;
 use Auth;
 
 class FormController extends Controller
@@ -34,7 +35,7 @@ class FormController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->can('create', Form::class)) {
+        if ($user->can('create', Form::class) && $user->can('isNotBlocked', User::class)) {
             return view('form.create');
         }
 

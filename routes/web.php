@@ -26,5 +26,5 @@ Route::middleware('auth')->group(function() {
         Route::resource('form', 'FormController');
     });
 
-    Route::resource('user/form', 'FormController')->only(['create', 'store'])->middleware('can:isNotBlocked,App\User');
+    Route::resource('user/form', 'FormController')->only(['create', 'store']);
 });

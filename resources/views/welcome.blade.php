@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Laravel</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         html, body {
             background-color: #fff;
@@ -68,7 +68,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
-                <a class="nav-link text-success btn btn-outline-success" href="{{ route('logout') }}"
+                <a href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout
                 </a>
@@ -84,24 +84,8 @@
     @endif
 
     <div class="content">
-        <div class="title m-b-md">
-            @auth
-                @cannot('isNotBlocked', 'App\User')
-                    You are blocked!!!
-                @else
-                    Laravel
-                @endcannot
-            @endauth
-
-            @guest
-                Laravel
-            @endguest
-        </div>
+        <div class="title m-b-md">Save Form App</div>
         <div class="links">
-            @guest
-                <p>Please login</p>
-            @endguest
-
             @auth
                 @if (Auth::user()->inRole('admin'))
                     <a href="{{ route('form.index') }}">Form list</a>
@@ -111,8 +95,13 @@
                 @if (Auth::user()->inRole('user'))
                     @can('isNotBlocked', 'App\User')
                         <a href="{{ route('form.create') }}">Fill form</a>
+                    @else
+                        <div class="alert alert-danger" role="alert">You are blocked!!!</div>
                     @endcan
                 @endif
+
+            @else
+                <p>Please login</p>
             @endauth
         </div>
     </div>

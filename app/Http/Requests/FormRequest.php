@@ -14,13 +14,15 @@ class FormRequest extends Request
      */
     public function authorize()
     {
-        if ($this->route('form.create')) {
+        if ($this->route()->getName() === 'form.store') {
             return $this->user()->can('create', Form::class);
-        } elseif ($this->route('form.update')) {
-            return $this->user()->can('update', Form::class);
         }
 
-        return true;
+        if ($this->route()->getName() === 'form.update') {
+            return $this->user()->can('edit', Form::class);
+        }
+
+        return false;
     }
 
     /**

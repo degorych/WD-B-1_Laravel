@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\FormRequest;
 use App\Form;
 use App\User;
 use Auth;
@@ -45,27 +46,15 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\FormRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'bail|required|max:20|alpha',
-            'surname' => 'bail|required|max:25|alpha',
-            'burn' => 'required|date',
-            'phone' => 'regex:/\d+/',
-            'gender' => 'bail|required|alpha|max:5',
-        ]);
+        $data = $request->input();
+        $data['user_id'] = Auth::user()->id;
 
-        Form::create([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'burn' => $request->burn,
-            'phone' => $request->phone,
-            'gender' => $request->gender,
-            'user_id' => Auth::user()->id,
-        ]);
+        Form::create($data);
 
         return redirect()->back()->with('message', 'You sent form successfully');
     }
@@ -109,31 +98,13 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\FormRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FormRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'bail|required|max:20|alpha',
-            'surname' => 'bail|required|max:25|alpha',
-            'burn' => 'required|date',
-            'phone' => 'regex:/\d+/',
-            'gender' => 'bail|required|alpha|max:5',
-        ]);
-
-        $form = Form::findOrFail($id);
-
-        $form->fill([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'burn' => $request->burn,
-            'phone' => $request->phone,
-            'gender' => $request->gender,
-        ]);
-
-        $form->save();
+        $form = Form::findOrFail($id)->fill($request->input())->save();
 
         return redirect()->route('form.index')->with('message', 'You update form successfully');
     }

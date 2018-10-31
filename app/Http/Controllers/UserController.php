@@ -41,10 +41,7 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        $user->fill([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
+        $user->fill($request->input());
 
         $user->is_blocked = (boolean) $request->block;
 

@@ -15,6 +15,7 @@
 - Go to `config/database.php` and choose default settings for db connect, if need.
 - Run **terminal** into app folder and enter **composer install** or **php composer.phar install** command.
 - Run **php artisan key:generate**.
+- Run **composer update**.
 - Run **php artisan migrate** then **php artisan db:seed** or you can use one command **php artisan migrate --seed**.
 - Run **php artisan serve**.
 
